@@ -1,0 +1,33 @@
+{% extends 'django_registration/base_template.html' %}
+{% load static %}
+{% block content %}
+    <br>
+    <form action="" method="post" novalidate>
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="fieldWrapper">                
+                {{field.label_tag}}  {{field}} <br><br>
+                {% if field.errors %}
+                    {{field.errors}}
+                {% endif %}                
+            </div>            
+        {% endfor %}        
+        <input class="btn btn-primary btn-sm" type="submit" value="Register">   
+        <a href="{% url 'home' %}" class="btn btn-warning btn-sm">Back To Home</a>
+    </form><br>
+    <h2>Buy for 100 $ per month</h2>
+    <form action="{% url 'charge' %}" method="post">
+        {% csrf_token %}
+        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-key="{{ key }}"
+            data-description="Payment Gateway"
+            data-amount="10000"
+            data-locale="auto">
+        </script>
+    </form>
+    
+        
+    
+     
+{% endblock content %}    
+    
